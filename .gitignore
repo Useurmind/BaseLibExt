@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/BaseLibExt/v15
+/BaseLibExt/bin
+/BaseLibExt/obj
+/BaseLibExt.Test/bin
+/BaseLibExt.Test/obj
+/packages
