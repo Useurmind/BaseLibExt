@@ -173,6 +173,55 @@ namespace BaseLibExt.Test.DataStructures
         }
 
         /// <summary>
+        ///     Gets all some elements returns all elements.
+        /// </summary>
+        [Fact]
+        public void GetAllDict_SomeElements_ReturnsAllElements()
+        {
+            var value1 = 45;
+            var value2 = 56;
+            var value3 = 87;
+
+            var key1 = "skdlfj";
+            var key2 = "sdfg";
+
+            this.dictionary.Add(34, key1, value1);
+            this.dictionary.Add(34, key2, value2);
+            this.dictionary.Add(56, "hfgh", value3);
+
+            var dict = this.dictionary.GetAllDict(34);
+
+            Assert.Equal(2, dict.Count());
+            Assert.True(dict.ContainsKey(key1));
+            Assert.True(dict.ContainsKey(key2));
+            Assert.Equal(value1, dict[key1]);
+            Assert.Equal(value2, dict[key2]);
+        }
+
+        /// <summary>
+        ///     Gets all some elements returns all elements.
+        /// </summary>
+        [Fact]
+        public void GetAllDict_UnknownKey_ReturnsEmptyDict()
+        {
+            var value1 = 45;
+            var value2 = 56;
+            var value3 = 87;
+
+            var key1 = "skdlfj";
+            var key2 = "sdfg";
+
+            this.dictionary.Add(34, key1, value1);
+            this.dictionary.Add(34, key2, value2);
+            this.dictionary.Add(56, "hfgh", value3);
+
+            var dict = this.dictionary.GetAllDict(37);
+
+            Assert.NotNull(dict);
+            Assert.Equal(0, dict.Count);
+        }
+
+        /// <summary>
         ///     Missings the item is not found.
         /// </summary>
         [Fact]

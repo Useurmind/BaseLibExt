@@ -98,11 +98,15 @@ namespace BaseLibExt.DataStructures
         /// <summary>
         ///     Gets the second level dictionary for the given first level key.
         /// </summary>
-        /// <param name="key1">The key1.</param>
-        /// <returns>All values.</returns>
+        /// <param name="key1">The first level key.</param>
+        /// <returns>Dictionary of the second level for the first level key (empty dictionary if nothing was registered for that key).</returns>
         public IDictionary<TKey2, TValue> GetAllDict(TKey1 key1)
         {
             var dict2 = this.GetSecondLevel(key1);
+            if (dict2 == null)
+            {
+                return new Dictionary<TKey2, TValue>();
+            }
             return new Dictionary<TKey2, TValue>(dict2);
         }
 
