@@ -122,7 +122,7 @@ namespace BaseLibExt.Test.DataStructures
 
             Action addSecondTime = () => { dictionary.Add(key1, key2, value); };
 
-            addSecondTime.ShouldThrow<Exception>();
+            addSecondTime.Should().Throw<Exception>();
         }
 
         /// <summary>
@@ -253,6 +253,108 @@ namespace BaseLibExt.Test.DataStructures
             var result = dictionary.Contains(key1, key2);
 
             result.Should().BeFalse();
+        }
+
+        /// <summary>
+        ///     Can remove complete first  level.
+        /// </summary>
+        [Fact]
+        public void CanRemoveCompleteFirstLevel()
+        {
+            var key1 = 5;
+            var key21 = "key1";
+            var key22 = "key2";
+            var key12 = 2;
+
+            var dictionary = new DoubleKeyDictionary<int, string, string>();
+
+            dictionary.Add(key1, key21, "value11");
+            dictionary.Add(key1, key22, "value2");
+            dictionary.Add(key12, key21, "value3");
+            dictionary.Add(key12, key22, "value4");
+
+            var result = dictionary.Remove(key1);
+
+            result.Should().BeTrue();
+            dictionary.Count.Should().Be(2);
+            dictionary.Contains(key1, key21).Should().BeFalse();
+            dictionary.Contains(key1, key22).Should().BeFalse();
+            dictionary.GetAll().FirstOrDefault(x => x == "value11").Should().BeNullOrEmpty();
+            dictionary.GetAll().FirstOrDefault(x => x == "value2").Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        ///     Can remove exact entry.
+        /// </summary>
+        [Fact]
+        public void CanRemoveExactEntry()
+        {
+            var key1 = 5;
+            var key21 = "key1";
+            var key22 = "key2";
+            var key12 = 2;
+
+            var dictionary = new DoubleKeyDictionary<int, string, string>();
+
+            dictionary.Add(key1, key21, "value11");
+            dictionary.Add(key1, key22, "value2");
+            dictionary.Add(key12, key21, "value3");
+            dictionary.Add(key12, key22, "value4");
+
+            var result = dictionary.Remove(key1, key21);
+
+            result.Should().BeTrue();
+            dictionary.Count.Should().Be(3);
+            dictionary.Contains(key1, key21).Should().BeFalse();
+            dictionary.GetAll().FirstOrDefault(x => x == "value11").Should().BeNullOrEmpty();
+        }
+        
+        /// <summary>
+        ///     If first level was not found TRyRemove returns false.
+        /// </summary>
+        [Fact]
+        public void RemoveLevel1ReturnsFalseIfNothingFound()
+        {
+            var key1 = 5;
+            var key21 = "key1";
+            var key22 = "key2";
+            var key12 = 2;
+
+            var dictionary = new DoubleKeyDictionary<int, string, string>();
+
+            dictionary.Add(key1, key21, "value11");
+            dictionary.Add(key1, key22, "value2");
+            dictionary.Add(key12, key21, "value3");
+            dictionary.Add(key12, key22, "value4");
+
+            var result = dictionary.Remove(3);
+
+            result.Should().BeFalse();
+        }
+
+        /// <summary>
+        ///     If entry not found TryRemove returns false.
+        /// </summary>
+        [Fact]
+        public void RemoveLevel2ReturnsFalseIfNothingFound()
+        {
+            var key1 = 5;
+            var key21 = "key1";
+            var key22 = "key2";
+            var key12 = 2;
+
+            var dictionary = new DoubleKeyDictionary<int, string, string>();
+
+            dictionary.Add(key1, key21, "value11");
+            dictionary.Add(key1, key22, "value2");
+            dictionary.Add(key12, key21, "value3");
+            dictionary.Add(key12, key22, "value4");
+
+            var result = dictionary.Remove(3, key21);
+            var result2 = dictionary.Remove(5, "key3");
+
+            result.Should().BeFalse();
+            result2.Should().BeFalse();
         }
     }
 }

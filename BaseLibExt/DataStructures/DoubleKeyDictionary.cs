@@ -143,6 +143,46 @@ namespace BaseLibExt.DataStructures
         }
 
         /// <summary>
+        /// Delete all entries beneath this first level key.
+        /// Throws an exception if not present.
+        /// </summary>
+        /// <param name="key1">The first level key.</param>
+        public bool Remove(TKey1 key1)
+        {
+            var found = this.dictionary.Remove(key1);
+
+            if (found)
+            {
+                this.items = this.items.Where(x => !x.Key1.Equals(key1)).ToList();
+            }
+
+            return found;
+        }
+
+        /// <summary>
+        /// Delete exactly the given entry.
+        /// Throws an exception if not present.
+        /// </summary>
+        /// <param name="key1">The first level key.</param>
+        /// <param name="key2">The second level key.</param>
+        public bool Remove(TKey1 key1, TKey2 key2)
+        {
+            var secondLevel = this.GetSecondLevel(key1);
+            if (secondLevel == null)
+            {
+                return false;
+            }
+
+            var found = secondLevel.Remove(key2);
+            if (found)
+            {
+                this.items = this.items.Where(x => !(x.Key1.Equals(key1) && x.Key2.Equals(key2))).ToList();
+            }
+
+            return found;
+        }
+
+        /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>

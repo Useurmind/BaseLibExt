@@ -3,11 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461;net462</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.4.1</Version>
+    <Version>1.5</Version>
     <PackageProjectUrl>https://github.com/Useurmind/BaseLibExt</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Useurmind/BaseLibExt.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseUrl>https://github.com/Useurmind/BaseLibExt/blob/master/LICENSE</PackageLicenseUrl>
+    <Authors>Jochen Grün</Authors>
+    <Product />
+    <Company />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
